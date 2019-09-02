@@ -128,6 +128,7 @@ if DEBUG:
     ALLOWED_HOSTS = []
 
 else:
+    ALLOWED_HOSTS = ['www.dev2tech.xyz']
     """
     Email conf
     """
