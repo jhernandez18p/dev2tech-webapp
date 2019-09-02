@@ -1,0 +1,27 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% include "base-css.html" %}
+    <title>Dev2tech {% if not page_title  %}{% else %} - {{page_title}}{% endif %}</title>
+</head>
+<body>
+    <div class="white-overlay">
+        <div class="preloader" id="pageLoad">
+            <div class="holder">
+                <div class="coffee_cup"></div>
+            </div>
+        </div>
+        {% include "header.html" %}
+        <div id="wrapper" class="no-overflow-x">
+            <div class="page-wrapper">
+            {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    {% include "footer.html" %}
+    {% include "base-scripts.html" %}
+</body>
+</html>
