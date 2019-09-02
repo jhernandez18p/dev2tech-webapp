@@ -1,12 +1,13 @@
 import os
+from decouple import config
 
 from django.contrib.messages import constants as message_constants
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'c*sz+46rmab42wx(!fvs4o5f(xy*b+&@dv@c6@spf88js^6d-y'
+SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 DJANGO_APPS = [
     'django.contrib.admin',
