@@ -119,7 +119,6 @@ dmypy.json
 /*/*/*.pyc
 /*/*/*/*.pyc
 /templates/html/*
-/staticfiles
 
 server/auth/migrations/*
 **/*.pyc
