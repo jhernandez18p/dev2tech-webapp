@@ -120,6 +120,11 @@ dmypy.json
 /*/*/*/*.pyc
 /templates/html/*
 
+!/staticfiles/vendors/owl-carousel/*
+!/staticfiles/vendors/rev-slider/*
+!/staticfiles/vendors/bootstrap-select/*
+!/staticfiles/vendors/tether/*
+
 server/auth/migrations/*
 **/*.pyc
 .env
