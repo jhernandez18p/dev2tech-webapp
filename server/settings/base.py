@@ -91,18 +91,15 @@ USE_L10N = True
 USE_TZ = True
 
 if config('STATICFILES'):
-
     STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "staticfiles")
-
 else:
-
-    MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
-
     STATICFILES_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),]
 
-STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 
 MEDIA_URL = '/media/'
+
+STATIC_URL = '/static/'
 
 LOGIN_URL = '/auth'
 
