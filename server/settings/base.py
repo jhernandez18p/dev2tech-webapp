@@ -90,22 +90,19 @@ USE_L10N = True
 
 USE_TZ = True
 
-if config('STATICFILES'):
-    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "staticfiles")
+if not config('STATICFILES'):
+
+    STATIC_ROOT = '%s' % (os.path.join(os.path.dirname(BASE_DIR), "staticfiles"))
+
 else:
+
     STATICFILES_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),]
 
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 
 MEDIA_URL = '/media/'
 
-STATIC_URL = '/static/'
-
-LOGIN_URL = '/auth'
-
-LOGIN_REDIRECT_URL = '/'
-
-LOGOUT_REDIRECT_URL = '/'
+STATIC_URL = '/staticfiles/'
 
 MESSAGE_TAGS = {
     message_constants.DEBUG: 'info',
@@ -114,6 +111,12 @@ MESSAGE_TAGS = {
     message_constants.WARNING: 'warning',
     message_constants.ERROR: 'danger',
 }
+
+LOGIN_URL = '/auth'
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGOUT_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
