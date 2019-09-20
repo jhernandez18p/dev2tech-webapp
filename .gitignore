@@ -124,6 +124,7 @@ dmypy.json
 !/staticfiles/vendors/rev-slider/*
 !/staticfiles/vendors/bootstrap-select/*
 !/staticfiles/vendors/tether/*
+!/staticfiles/vendors/rev-slider/revolution-addons/snow/*
 
 server/auth/migrations/*
 **/*.pyc
