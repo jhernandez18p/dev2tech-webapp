@@ -81,8 +81,8 @@ class QuotationView(FormView):
         send_mail(
             subject="Cotización pagina web",
             message=quotation_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            from_email='info@dev2tech.xyz',
+            recipient_list=['info@dev2tech.xyz',],
         )
 
         '''
@@ -166,8 +166,8 @@ class ContactView(FormView):
         send_mail(
             subject="Cotización pagina web",
             message=quotation_message,
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+            from_email='info@dev2tech.xyz',
+            recipient_list=['info@dev2tech.xyz',],
         )
 
         '''
