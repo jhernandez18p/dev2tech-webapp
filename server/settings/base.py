@@ -90,19 +90,17 @@ USE_L10N = True
 
 USE_TZ = True
 
-if config('STATICFILES'):
+# STATIC_ROOT = '{staticfiles}'.format( staticfiles = os.path.join(os.path.dirname(BASE_DIR), "staticfiles" ))
 
-    STATIC_ROOT = '{}'.format(os.path.join(os.path.dirname(BASE_DIR), "staticfiles"))
-
-else:
-
-    STATICFILES_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),]
+STATICFILES_DIRS = [
+    os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),
+]
 
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 
 MEDIA_URL = '/media/'
 
-STATIC_URL = '/staticfiles/'
+STATIC_URL = '/static/'
 
 MESSAGE_TAGS = {
     message_constants.DEBUG: 'info',
