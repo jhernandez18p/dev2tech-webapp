@@ -1,9 +1,188 @@
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from .forms import QuotationForm, ContactForm
 
 """
 Base View
 """
 class HomeView(TemplateView):
-    template_name = "blank.html"
+    
+    template_name = "base/home.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Home'
+        context['page_description'] = 'Home'
+        context['has_banner'] = True
+        context['has_aside'] = True
+        return context
+
+
+class ServicesView(TemplateView):
+    
+    template_name = "base/services.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Servicios'
+        context['page_description'] = 'Services'
+        context['has_banner'] = True
+        context['has_aside'] = True
+        return context
+
+
+class QuotationView(FormView):
+    
+    template_name = "base/quotation.html"
+    success_url = '/gracias'
+    form_class = QuotationForm
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        self.send_email(form.cleaned_data)
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Cotización gratuita'
+        context['page_description'] = 'Cotización gratuita'
+        context['has_banner'] = False
+        context['has_aside'] = False
+        return context
+
+    def send_email(self, valid_data):
+
+        quotation_message = """
+        Nombre : {name}               \n
+        Email : {email}               \n
+        Teléfono : {phone}            \n
+        Servicio : {service}          \n
+        Monto de inversión : {invest} \n
+        Empresa : {company}           \n
+        País : {country}              \n
+        Comentatios : {comment}
+        """.format(
+            name=valid_data['name'],
+            email=valid_data['email'],
+            phone=valid_data['phone'],
+            comment = valid_data['comment'],
+            invest = valid_data['invest'],
+            company = valid_data['company'],
+            country = valid_data['country'],
+            service = valid_data['subject']
+        )
+
+        send_mail(
+            subject="Cotización pagina web",
+            message=quotation_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+        )
+
+        '''
+        print(valid_data)
+        '''
+
+
+class PortfolioView(TemplateView):
+    
+    template_name = "base/portfolio.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Portfolio'
+        context['page_description'] = 'Portfolio'
+        context['has_banner'] = True
+        context['has_aside'] = False
+        return context
+
+
+class BlogView(TemplateView):
+    
+    template_name = "base/blog.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Blog'
+        context['page_description'] = 'Blog'
+        context['has_banner'] = True
+        context['has_aside'] = False
+        return context
+
+
+class BlogDetailView(TemplateView):
+    
+    template_name = "base/detail/blog.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Blog'
+        context['page_description'] = 'Blog'
+        context['has_banner'] = False
+        context['has_aside'] = False
+        return context
+
+
+class ContactView(FormView):
+    
+    template_name = "base/contact.html"
+    success_url = '/gracias'
+    form_class = ContactForm
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        self.send_email(form.cleaned_data)
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Contact'
+        context['page_description'] = 'Contact'
+        context['has_banner'] = False
+        context['has_aside'] = False
+        return context
+
+    def send_email(self, valid_data):
+
+        quotation_message = """
+        Nombre : {name}               \n
+        Email : {email}               \n
+        Teléfono : {phone}            \n
+        Comentatios : {comment}
+        """.format(
+            name=valid_data['name'],
+            email=valid_data['email'],
+            phone=valid_data['phone'],
+            comment = valid_data['comment'],
+        )
+
+        send_mail(
+            subject="Cotización pagina web",
+            message=quotation_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
+        )
+
+        '''
+        print(valid_data)
+        '''
+
+
+class ThanksView(TemplateView):
+    
+    template_name = "base/thanks.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Gracias'
+        context['page_description'] = 'Ud. se ha comunicado con el equipo de Dev2tech, su solicitud será procesada en breve.'
+        context['has_banner'] = False
+        context['has_aside'] = True
+        return context

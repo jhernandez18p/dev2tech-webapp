@@ -1,6 +1,6 @@
 import os
-from decouple import config
 
+from decouple import config
 from django.contrib.messages import constants as message_constants
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +22,9 @@ LOCAL_APPS = [
     'server.auth'
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'crispy_forms',
+]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -122,9 +124,7 @@ if DEBUG:
             'NAME': os.path.join(os.path.join(BASE_DIR, 'settings'), 'db.sqlite3'),
         }
     }
-    
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    
     ALLOWED_HOSTS = []
 
 else:
@@ -137,4 +137,4 @@ else:
     EMAIL_HOST_USER = config('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
     EMAIL_USE_TLS = config('EMAIL_USE_TLS')
-    DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+    DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL') 

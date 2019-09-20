@@ -1,5 +1,9 @@
 {% load static %}
+{% if not has_banner %}
+<header class="fixed-top main-header header-white no-top-header" id="waituk-main-header">
+{% else %}
 <header class="fixed-top main-header header-white transparent with-side-panel-ico" id="waituk-main-header">
+{% endif %}
     <div id="nav-section">
         <div class="bottom-header container-fluid mega-menus" id="mega-menus">
             <nav class="navbar navbar-toggleable-md no-border-radius no-margin mega-menu-multiple" id="navbar-inner-container">
@@ -13,7 +17,6 @@
                 </button>
                 <a class="navbar-brand mr-auto m-sm-auto" href="{% url 'home' %}"> 
                     <img src="{% static 'img/logo.png' %}" alt="dev2tech">
-                    <img src="{% static 'img/logo.png' %}" alt="dev2tech"> 
                 </a>
                 <div class="collapse navbar-collapse flex-row-reverse" id="mega-menu">
                     <ul class="nav navbar-nav">
@@ -106,12 +109,12 @@
                                 <li><a href="#">  Full Width </a></li>
                             </ul> -->
                         </li>
-                        <li class="dropdown right-dropdown" data-animation="fadeIn">
-                            <a href="{% url 'blog' %}" data-title="Blog"> Blog </a>
+                        <!-- <li class="dropdown right-dropdown" data-animation="fadeIn">
+                            <a href="{% url 'blog' %}" data-title="Blog"> Blog </a> -->
                             <!-- <ul class="dropdown-menu no-border-radius">
                                 <li><a href="#"> Blog post </a></li>
                             </ul> -->
-                        </li>
+                        <!-- </li> -->
                         <li>
                             <a href="{% url 'contact' %}"> Contacto </a>
                         </li>
@@ -163,7 +166,7 @@
                     </ul>
                 </div>
                 <div class="navbar-pos-search with-side-panel">
-                    <a href="#" class="x-search x-search-trigger navbar-link"><i class="custom-icon-search"></i></a>
+                    <!-- <a href="#" class="x-search x-search-trigger navbar-link"><i class="custom-icon-search"></i></a> -->
                     <a href="#" class="x-search icon-close-round navbar-link"><i class="icon-line-cross"></i></a>
                 </div>
             </nav>
