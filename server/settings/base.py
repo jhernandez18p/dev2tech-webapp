@@ -90,9 +90,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATIC_ROOT = '{}'.format(os.path.join(os.path.dirname(BASE_DIR), "staticfiles"))
+if config('STATICFILES'):
 
-# STATICFILES_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),]
+    STATIC_ROOT = '{}'.format(os.path.join(os.path.dirname(BASE_DIR), "staticfiles"))
+
+else:
+
+    STATICFILES_DIRS = [os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),]
 
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 
