@@ -155,7 +155,7 @@ class ContactView(FormView):
         Nombre : {name}               \n
         Email : {email}               \n
         Teléfono : {phone}            \n
-        Comentatios : {comment}
+        Comentarios : {comment}
         """.format(
             name=valid_data['name'],
             email=valid_data['email'],
@@ -164,7 +164,7 @@ class ContactView(FormView):
         )
 
         send_mail(
-            subject="Cotización pagina web",
+            subject="Contacto pagina web",
             message=quotation_message,
             from_email='info@dev2tech.xyz',
             recipient_list=['info@dev2tech.xyz',],
