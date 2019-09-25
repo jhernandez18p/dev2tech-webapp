@@ -5,5 +5,5 @@ from django.utils.translation import gettext_lazy as _
 
 class BaseConfig(AppConfig):
     name = 'client.base'
-    verbose_name = _("Modulo de Sistema")
-    verbose_name_plural = _("Modulo de Sistema")
+    verbose_name = _("Modulo deL Sistema")
+    verbose_name_plural = _("Modulo deL Sistema")

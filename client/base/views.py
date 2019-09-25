@@ -1,14 +1,15 @@
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, request
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import QuotationForm, ContactForm
+from server.auth.models import Suscribe
+from .forms import ContactForm, QuotationForm, SuscribeForm
 
 """
-Base View
+Base Views
 """
 class HomeView(TemplateView):
     
@@ -43,8 +44,6 @@ class QuotationView(FormView):
     form_class = QuotationForm
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
         self.send_email(form.cleaned_data)
         return super().form_valid(form)
     
@@ -136,8 +135,6 @@ class ContactView(FormView):
     form_class = ContactForm
 
     def form_valid(self, form):
-        # This method is called when valid form data has been POSTed.
-        # It should return an HttpResponse.
         self.send_email(form.cleaned_data)
         return super().form_valid(form)
     
@@ -174,6 +171,54 @@ class ContactView(FormView):
         print(valid_data)
         '''
 
+
+class SuscribeView(FormView):
+    
+    template_name = "base/suscribe.html"
+    success_url = '/gracias'
+    form_class = SuscribeForm
+
+    def post(self, request):
+
+        if request.POST['email']:
+            # print(request.POST)
+            email = request.POST['email']
+            subscriber = Suscribe(email=email)
+            subscriber.save()
+            self.send_email(email)
+        
+        return super().form_valid(SuscribeForm)
+
+    def form_valid(self, form):
+        self.send_email(form.cleaned_data)
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Gracias por suscribirse'
+        context['page_description'] = 'Ud. se ha suscrito a nuestra lista contactos.'
+        context['has_banner'] = False
+        context['has_aside'] = True
+        return context
+
+    def send_email(self, email):
+
+        suscribe_message = """
+        Email : {email}               \n
+        """.format(
+            email=email,
+        )
+
+        send_mail(
+            subject="Suscriptor página web",
+            message=suscribe_message,
+            from_email='info@dev2tech.xyz',
+            recipient_list=['info@dev2tech.xyz',],
+        )
+
+        '''
+        print(valid_data)
+        '''
 
 class ThanksView(TemplateView):
     

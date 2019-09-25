@@ -3,6 +3,9 @@ import os
 from decouple import config
 from django.contrib.messages import constants as message_constants
 
+
+SITE_ID = 1
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = config('SECRET_KEY')
@@ -16,6 +19,11 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
+    'django.contrib.sitemaps',
+    'django.contrib.humanize',
+    'django.contrib.redirects',
 ]
 
 LOCAL_APPS = [
@@ -30,12 +38,21 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # 'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware', # JWT
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -110,16 +127,24 @@ MESSAGE_TAGS = {
     message_constants.ERROR: 'danger',
 }
 
+SITE_URL = 'http://www.dev2tech.xyz'
+
 LOGIN_URL = '/auth'
 
 LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = SITE_URL
+
+PASSWORD_RESET_TIMEOUT_DAYS = 3
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'server.auth.email_backend.EmailBackend',
 ]
+
+SESSION_COOKIE_AGE = 43200
+
+SESSION_COOKIE_NAME = 'session'
 
 if DEBUG:
     DATABASES = {
@@ -128,8 +153,12 @@ if DEBUG:
             'NAME': os.path.join(os.path.join(BASE_DIR, 'settings'), 'db.sqlite3'),
         }
     }
+
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    ALLOWED_HOSTS = []
+    
+    ALLOWED_HOSTS = ['*']
+
+    MESSAGE_LEVEL = message_constants.DEBUG
 
 else:
     DATABASES = {
@@ -142,9 +171,16 @@ else:
     """
     Email conf
     """
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
     EMAIL_HOST = config('EMAIL_HOST')
+    
     EMAIL_PORT = config('EMAIL_PORT')
+    
     EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    
     EMAIL_USE_SSL = config('EMAIL_USE_SSL')
+    
     DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL') 

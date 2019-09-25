@@ -10,12 +10,22 @@
                 </div>
                 <div class="col-md-4">
                     <div class="footer-nav inline-nav text-center">
-                        <ul>
-                            <li><a href="{% url 'home' %}">Home</a></li>
-                            <li><a href="{% url 'services' %}">Servicios</a></li>
-                            <!-- <li><a href="{% url 'blog' %}">Blog</a></li> -->
-                            <li><a href="{% url 'contact' %}">Contacto</a></li>
-                        </ul>
+                        <!-- <div class="my-4"> -->
+                            <h4 class="text-centered">
+                                Suscribirse al boletín de noticias.
+                            </h4>
+                            <div class="waituk_newsletter-form newsletter-v1 mt-2">
+                                <form action="{% url 'suscribe' %}" method="post">
+                                    {% csrf_token %}
+                                    <fieldset class="clearfix">
+                                        <div class="form-group input-holder">
+                                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                            <button type="submit" class="btn"><i class="fa fa-send"></i></button>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                        <!-- </div> -->
                     </div>
                 </div>
                 <div class="col-md-4 text-right">
@@ -25,6 +35,13 @@
                         <li><a href="#"><span class="icon-instagram"></span></a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    
+                </div>
+                <div class="col-md-3"></div>
             </div>
         </div>
     </div>

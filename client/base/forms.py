@@ -3,6 +3,13 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Field
 
 
+class SuscribeForm(forms.Form):
+
+    email = forms.CharField(
+        label='Escriba su email',
+        widget=forms.TextInput(attrs={'placeholder': 'Email',})
+    )
+
 class ContactForm(forms.Form):
 
     name = forms.CharField(

@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
-from .models import Profile
+from .models import Profile, Suscribe
 
 
 class ProfileInline(admin.StackedInline):
@@ -25,5 +25,10 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display =('email','date_added',)
+
+
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Suscribe, NewsletterAdmin)

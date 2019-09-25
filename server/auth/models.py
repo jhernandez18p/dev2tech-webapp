@@ -34,6 +34,29 @@ class Profile(models.Model):
         verbose_name_plural = _('Perfiles de Usuarios')
 
 
+class Suscribe(models.Model):
+
+    SUSCRIBED = 'SUB'
+    UNSUSCRIBED = 'UNS'
+    STATUS_TYPE_CHOICES = (
+        (SUSCRIBED, 'Public limited company'),
+        (UNSUSCRIBED, 'Private company limited by shares'),
+    )
+
+    email = models.EmailField(max_length=254,)
+    status = models.CharField('type', max_length=3, choices=STATUS_TYPE_CHOICES, default='SUB')
+    date_added = models.DateField(auto_now_add=True)
+    unsuscribe_at = models.DateTimeField(auto_now=True, auto_now_add=False,verbose_name=_('Ultima actualización'))
+
+    def __str__(self):
+        return self.email
+    
+    class Meta:
+        ordering = ['-date_added']
+        verbose_name = _('Newsletter')
+        verbose_name_plural = _('Newsletters')
+
+
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
