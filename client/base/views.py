@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.http import HttpResponse, request
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -220,6 +221,7 @@ class SuscribeView(FormView):
         print(valid_data)
         '''
 
+
 class ThanksView(TemplateView):
     
     template_name = "base/thanks.html"
@@ -231,3 +233,7 @@ class ThanksView(TemplateView):
         context['has_banner'] = False
         context['has_aside'] = True
         return context
+
+def mailto_view(request):
+    response = redirect('/contacto')
+    return response
