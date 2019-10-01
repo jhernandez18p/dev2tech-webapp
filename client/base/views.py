@@ -240,9 +240,8 @@ class ThanksView(TemplateView):
 
 class DisplayPDFView(View):
 
-    def get_context_data(self, **kwargs):  # Exec 1st
+    def get_context_data(self, **kwargs):
         context = {}
-        # context logic here
         return context
 
     def get(self, request, *args, **kwargs):
