@@ -24,17 +24,17 @@ class SignUp(FormView):
 """
 Customizing error views
 """
-def my_custom_bad_request_view(request):
-    return HttpResponse('my_custom_bad_request_view')
+def my_custom_bad_request_view(request, exception):
+    return HttpResponse('bad request')
 
 
-def my_custom_permission_denied_view(request):
-    return HttpResponse('my_custom_permission_denied_view')
+def my_custom_permission_denied_view(request, exception):
+    return HttpResponse('permission denied')
 
 
-def my_custom_page_not_found_view(request):
-    return HttpResponse('my_custom_page_not_found_view')
+def my_custom_page_not_found_view(request, exception):
+    return HttpResponse('page not found')
 
 
 def my_custom_error_view(request):
-    return HttpResponse('my_custom_error_view')
+    return HttpResponse('error')
