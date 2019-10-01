@@ -1,8 +1,11 @@
+import os
+
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.http import HttpResponse, request
 from django.shortcuts import redirect
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -233,6 +236,30 @@ class ThanksView(TemplateView):
         context['has_banner'] = False
         context['has_aside'] = True
         return context
+
+
+class DisplayPDFView(View):
+
+    def get_context_data(self, **kwargs):  # Exec 1st
+        context = {}
+        # context logic here
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        base_path = os.path.join(os.path.join(os.path.dirname(settings.BASE_DIR), "staticfiles"), 'pdf')
+        path = os.path.join(base_path, 'brochure.pdf')
+        try:
+            with open(path, 'rb') as pdf:
+                response = HttpResponse(pdf.read(),content_type='application/pdf')
+                response['Content-Disposition'] = 'filename="brochure.pdf"'
+            pdf.closed
+
+        except:
+            response = redirect('/contacto')
+
+        return response
+
 
 def mailto_view(request):
     response = redirect('/contacto')

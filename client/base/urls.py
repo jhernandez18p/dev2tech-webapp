@@ -3,12 +3,13 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 from .views import HomeView, PortfolioView, ContactView, BlogView, BlogDetailView, \
-    ServicesView, QuotationView, ThanksView, SuscribeView
+    ServicesView, QuotationView, ThanksView, SuscribeView, DisplayPDFView
 
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('brochure', RedirectView.as_view(url='/'), name='brochure'),
+    path('brochure_pdf', DisplayPDFView.as_view(), name='brochure_pdf'),
     path('servicios', ServicesView.as_view(), name='services' ),
     path('servicios/web', RedirectView.as_view(url='/servicios'), name='web' ),
     path('servicios/marketing', RedirectView.as_view(url='/servicios'), name='marketing' ),
