@@ -6,7 +6,7 @@ from django.views.generic.base import RedirectView
 from django.views.static import serve
 
 
-favicon_view = RedirectView.as_view(url='/static/favicon/manifest.json', permanent=True)
+favicon_view = RedirectView.as_view(url='/static/favicon/favicon-96x96.png', permanent=True)
 
 urlpatterns = [
     path('', include( 'client.base.urls' )),
