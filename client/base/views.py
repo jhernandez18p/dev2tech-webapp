@@ -269,7 +269,7 @@ class PricePDFView(View):
     def get(self, request, *args, **kwargs):   
         context = self.get_context_data()
         base_path = os.path.join(os.path.join(os.path.dirname(settings.BASE_DIR), "staticfiles"), 'pdf')
-        path = os.path.join(base_path, 'brochure.pdf')
+        path = os.path.join(base_path, 'precios.pdf')
         try:
             with open(path, 'rb') as pdf:
                 response = HttpResponse(pdf.read(),content_type='application/pdf')
