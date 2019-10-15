@@ -260,13 +260,13 @@ class DisplayPDFView(View):
         return response
 
 
-class DisplayPricePDFView(View):
+class PricePDFView(View):
 
     def get_context_data(self, **kwargs):
         context = {}
         return context
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):   
         context = self.get_context_data()
         base_path = os.path.join(os.path.join(os.path.dirname(settings.BASE_DIR), "staticfiles"), 'pdf')
         path = os.path.join(base_path, 'brochure.pdf')
