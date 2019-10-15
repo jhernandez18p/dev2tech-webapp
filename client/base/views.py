@@ -260,6 +260,28 @@ class DisplayPDFView(View):
         return response
 
 
+class DisplayPricePDFView(View):
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        base_path = os.path.join(os.path.join(os.path.dirname(settings.BASE_DIR), "staticfiles"), 'pdf')
+        path = os.path.join(base_path, 'brochure.pdf')
+        try:
+            with open(path, 'rb') as pdf:
+                response = HttpResponse(pdf.read(),content_type='application/pdf')
+                response['Content-Disposition'] = 'filename="price.pdf"'
+            pdf.closed
+
+        except:
+            response = redirect('/contacto')
+
+        return response
+
+
 def mailto_view(request):
     response = redirect('/contacto')
     return response
