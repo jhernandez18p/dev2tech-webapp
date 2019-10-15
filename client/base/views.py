@@ -273,7 +273,7 @@ class DisplayPricePDFView(View):
         try:
             with open(path, 'rb') as pdf:
                 response = HttpResponse(pdf.read(),content_type='application/pdf')
-                response['Content-Disposition'] = 'filename="price.pdf"'
+                response['Content-Disposition'] = 'filename="precios.pdf"'
             pdf.closed
 
         except:
