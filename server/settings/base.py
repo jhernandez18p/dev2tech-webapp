@@ -12,6 +12,17 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASS'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+    }
+}
+
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -27,11 +38,13 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    'server.auth'
+    'server.auth',
+    'client.apps.blog'
 ]
 
 THIRD_PARTY_APPS = [
     'crispy_forms',
+    'ckeditor'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -107,11 +120,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-# STATIC_ROOT = '{staticfiles}'.format( staticfiles = os.path.join(os.path.dirname(BASE_DIR), "staticfiles" ))
-
-STATICFILES_DIRS = [
-    os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),
-]
+if config('STATIC_ROOT', default=False, cast=bool):
+    STATIC_ROOT = '{staticfiles}'.format( staticfiles = os.path.join(os.path.dirname(BASE_DIR), "staticfiles" ))
+else:
+    STATICFILES_DIRS = [
+        os.path.join(os.path.dirname(BASE_DIR), "staticfiles"),
+    ]
 
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 
@@ -127,7 +141,7 @@ MESSAGE_TAGS = {
     message_constants.ERROR: 'danger',
 }
 
-SITE_URL = 'http://www.dev2tech.xyz'
+SITE_URL = 'https://www.dev2tech.xyz'
 
 LOGIN_URL = '/auth'
 
@@ -135,7 +149,7 @@ LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = SITE_URL
 
-PASSWORD_RESET_TIMEOUT_DAYS = 3
+PASSWORD_RESET_TIMEOUT_DAYS = 120
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -146,41 +160,22 @@ SESSION_COOKIE_AGE = 43200
 
 SESSION_COOKIE_NAME = 'session'
 
+
 if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(os.path.join(BASE_DIR, 'settings'), 'db.sqlite3'),
-        }
-    }
-
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    
     ALLOWED_HOSTS = ['*']
-
     MESSAGE_LEVEL = message_constants.DEBUG
 
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(os.path.join(BASE_DIR, 'settings'), 'db.sqlite3'),
-        }
-    }
     ALLOWED_HOSTS = ['www.dev2tech.xyz',]
+    MESSAGE_LEVEL = message_constants.INFO
     """
     Email conf
     """
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
     EMAIL_HOST = config('EMAIL_HOST')
-    
     EMAIL_PORT = config('EMAIL_PORT')
-    
     EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-    
     EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-    
     EMAIL_USE_SSL = config('EMAIL_USE_SSL')
-    
     DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL') 

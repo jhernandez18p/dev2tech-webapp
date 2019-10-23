@@ -19,6 +19,8 @@ urlpatterns = [
     path('', include( 'client.base.urls' )),
     path('adminsite/', admin.site.urls),
     path('auth/', include( 'server.auth.urls' )),
+    path('blog/', include( 'client.apps.blog.urls' )),
+    path('servicios/', include( 'client.apps.services.urls' )),
     path('dashboard/', include( 'client.panel.urls' )),
     re_path(r'^favicon\.ico$', favicon_view),
 ]

@@ -28,19 +28,6 @@ class HomeView(TemplateView):
         return context
 
 
-class ServicesView(TemplateView):
-    
-    template_name = "base/services.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Servicios'
-        context['page_description'] = 'Services'
-        context['has_banner'] = True
-        context['has_aside'] = True
-        return context
-
-
 class QuotationView(FormView):
     
     template_name = "base/quotation.html"
@@ -102,32 +89,6 @@ class PortfolioView(TemplateView):
         context['page_title'] = 'Portafolio'
         context['page_description'] = 'Portafolio'
         context['has_banner'] = True
-        context['has_aside'] = False
-        return context
-
-
-class BlogView(TemplateView):
-    
-    template_name = "base/blog.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Blog'
-        context['page_description'] = 'Blog'
-        context['has_banner'] = True
-        context['has_aside'] = False
-        return context
-
-
-class BlogDetailView(TemplateView):
-    
-    template_name = "base/detail/blog.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_title'] = 'Blog'
-        context['page_description'] = 'Blog'
-        context['has_banner'] = False
         context['has_aside'] = False
         return context
 
