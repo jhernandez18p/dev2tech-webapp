@@ -10,22 +10,20 @@
                 </div>
                 <div class="col-md-4">
                     <div class="footer-nav inline-nav text-center">
-                        <!-- <div class="my-4"> -->
-                            <h4 class="text-centered">
-                                Suscribirse al boletín de noticias.
-                            </h4>
-                            <div class="waituk_newsletter-form newsletter-v1 mt-2">
-                                <form action="{% url 'suscribe' %}" method="post">
-                                    {% csrf_token %}
-                                    <fieldset class="clearfix">
-                                        <div class="form-group input-holder">
-                                            <input type="email" name="email" class="form-control" placeholder="Email" required>
-                                            <button type="submit" class="btn"><i class="fa fa-send"></i></button>
-                                        </div>
-                                    </fieldset>
-                                </form>
-                            </div>
-                        <!-- </div> -->
+                        <h4 class="text-centered">
+                            Suscribirse al boletín de noticias.
+                        </h4>
+                        <div class="waituk_newsletter-form newsletter-v1 mt-2">
+                            <form action="{% url 'suscribe' %}" method="post">
+                                {% csrf_token %}
+                                <fieldset class="clearfix">
+                                    <div class="form-group input-holder">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                        <button type="submit" class="btn"><i class="fa fa-send"></i></button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 text-right">
