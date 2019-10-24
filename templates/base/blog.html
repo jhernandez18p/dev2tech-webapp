@@ -49,7 +49,7 @@
                                 {% if post.sub_title %}
                                 <span class="content-sub-title">{{ post.sub_title }}</span>
                                 {% endif %}
-                                <p>This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Auctor, nisi elit consequat ipsum,</p>
+                                {{ post.content | safe | truncatechars_html:12 }}
                                 <div class="post-meta clearfix">
                                     <div class="post-link-holder">
                                         <a href="{{ post.get_absolute_url }}">
