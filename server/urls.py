@@ -33,9 +33,8 @@ handler403 = "server.auth.views.my_custom_permission_denied_view"
 handler404 = "server.auth.views.my_custom_page_not_found_view"
 handler500 = "server.auth.views.my_custom_error_view"
 
-if settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^media/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
-        }),        
-    ]
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),        
+]
