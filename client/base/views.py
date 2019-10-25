@@ -11,6 +11,7 @@ from django.views.generic.edit import FormView
 
 from server.auth.models import Suscribe
 from .forms import ContactForm, QuotationForm, SuscribeForm
+from server.auth.models import Suscribe
 
 """
 Base Views
@@ -36,6 +37,28 @@ class QuotationView(FormView):
 
     def form_valid(self, form):
         self.send_email(form.cleaned_data)
+
+        message = """
+        Servicio : {service}          \n
+        Monto de inversión : {invest} \n
+        Empresa : {company}           \n
+        País : {country}              \n
+        Comentatios : {comment}       \n
+        """.format(
+            comment = form.cleaned_data['comment'],
+            invest = form.cleaned_data['invest'],
+            company = form.cleaned_data['company'],
+            country = form.cleaned_data['country'],
+            service = form.cleaned_data['subject']
+        )
+
+        new_suscriber = Suscribe(
+            name=form.cleaned_data['name'],
+            phone_number=form.cleaned_data['phone'],
+            email=form.cleaned_data['email'],
+            message=message,
+        )
+        new_suscriber.save()
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -101,6 +124,13 @@ class ContactView(FormView):
 
     def form_valid(self, form):
         self.send_email(form.cleaned_data)
+        new_suscriber = Suscribe(
+            name=form.cleaned_data['name'],
+            phone_number=form.cleaned_data['phone'],
+            email=form.cleaned_data['email'],
+            message=form.cleaned_data['comment'],
+        )
+        new_suscriber.save()
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):
@@ -156,6 +186,11 @@ class SuscribeView(FormView):
 
     def form_valid(self, form):
         self.send_email(form.cleaned_data)
+        new_suscriber = Suscribe(
+            email=form.cleaned_data['email'],
+            message='Suscriptor web',
+        )
+        new_suscriber.save()
         return super().form_valid(form)
     
     def get_context_data(self, **kwargs):

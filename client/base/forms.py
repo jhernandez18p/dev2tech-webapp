@@ -32,6 +32,7 @@ class ContactForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_action = 'contacto'
         self.helper.layout = Layout(
             Field('name', css_class="form-control"),
             Field('email', css_class='form-control'),
