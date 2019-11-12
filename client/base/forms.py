@@ -38,7 +38,7 @@ class ContactForm(forms.Form):
             Field('email', css_class='form-control'),
             Field('phone', css_class='form-control'),
             Field('comment', css_class="form-control"),
-            Submit('submit', 'Solicitar Cotización')
+            Submit('submit', 'Contactar')
         )
 
 
