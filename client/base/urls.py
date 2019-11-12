@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 from .views import HomeView, PortfolioView, ContactView, \
-    QuotationView, ThanksView, SuscribeView, DisplayPDFView, PricePDFView
+    QuotationView, ThanksView, SuscribeView, DisplayPDFView, PricePDFView, PromoQuotationView
 
 
 urlpatterns = [
@@ -17,12 +17,18 @@ urlpatterns = [
     path('gracias', ThanksView.as_view(), name='thanks'),
     #
     path('brochure', RedirectView.as_view(url='/'), name='brochure'),
-    path('whatsapp', RedirectView.as_view(url='https://wa.me/50762667545'), name='whatsapp'),
     path('mailto', RedirectView.as_view(url='/contacto'), name='mailto'),
-    path('go-to-instagram', RedirectView.as_view(url='https://www.instagram.com/dev2tech/'), name='social_instagram'),
-    path('go-to-facebook', RedirectView.as_view(url='https://www.facebook.com/dev2tech/'), name='social_facebook'),
-    path('go-to-twitter', RedirectView.as_view(url='https://www.twitter.com/dev2tech/'), name='social_twitter'),
     path('instagram', RedirectView.as_view(url='/'), name='instagram'),
     path('facebook', RedirectView.as_view(url='/'), name='facebook'),
     path('twitter', RedirectView.as_view(url='/'), name='twitter'),
+    path('whatsapp', RedirectView.as_view(
+        url='https://wa.me/50762667545'), name='whatsapp'),
+    path('go-to-instagram', RedirectView.as_view(
+        url='https://www.instagram.com/dev2tech/'), name='social_instagram'),
+    path('go-to-facebook', RedirectView.as_view(
+        url='https://www.facebook.com/dev2tech/'), name='social_facebook'),
+    path('go-to-twitter', RedirectView.as_view(
+        url='https://www.twitter.com/dev2tech/'), name='social_twitter'),
+    #
+    path('web-45n', PromoQuotationView.as_view(), name='promo-web-45n'),
 ]

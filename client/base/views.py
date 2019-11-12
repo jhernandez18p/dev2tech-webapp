@@ -10,7 +10,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from server.auth.models import Suscribe
-from .forms import ContactForm, QuotationForm, SuscribeForm
+from .forms import ContactForm, QuotationForm, SuscribeForm, PromoQuotationForm
 from server.auth.models import Suscribe
 
 """
@@ -27,6 +27,88 @@ class HomeView(TemplateView):
         context['has_banner'] = True
         context['has_aside'] = True
         return context
+
+
+class PromoQuotationView(FormView):
+    
+    template_name = "base/quotation.html"
+    success_url = '/gracias'
+    form_class = PromoQuotationForm
+
+    def form_valid(self, form):
+        self.send_email(form.cleaned_data)
+
+        message = """
+        Servicio : Página web                                               \n
+        Monto de inversión : {invest}                                       \n
+        Empresa : {company}                                                 \n
+        Ha tenido web : {has_prev_web}                                      \n
+        País : {country}                                                    \n
+        Comentatios : {comment}                                             \n
+        Agregar Servicio de Soporte y Mantenimiento : {add_support}         \n
+        Agregar Sservicio de Email Profesional : {add_email}                \n
+        """.format(
+            invest = form.cleaned_data['invest'],
+            company = form.cleaned_data['company'],
+            has_prev_web = form.cleaned_data['has_prev_web'],
+            country = form.cleaned_data['country'],
+            comment = form.cleaned_data['comment'],
+            add_support = form.cleaned_data['add_support'],
+            add_email = form.cleaned_data['add_email']
+        )
+
+        new_suscriber = Suscribe(
+            name=form.cleaned_data['name'],
+            phone_number=form.cleaned_data['phone'],
+            email=form.cleaned_data['email'],
+            message=message,
+        )
+        new_suscriber.save()
+        return super().form_valid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Promo web desde 450$'
+        context['page_description'] = 'Promo web desde 450$'
+        context['has_banner'] = False
+        context['has_aside'] = False
+        return context
+
+    def send_email(self, valid_data):
+
+        quotation_message = """
+        Nombre : {name}                                                     \n
+        Email : {email}                                                     \n
+        Teléfono : {phone}                                                  \n
+        Servicio : Página web                                               \n
+        Empresa : {company}                                                 \n
+        Ha tenido web : {has_prev_web}                                      \n
+        País : {country}                                                    \n
+        Comentatios : {comment}                                             \n
+        Agregar Servicio de Soporte y Mantenimiento : {add_support}         \n
+        Agregar Sservicio de Email Profesional : {add_email}                \n
+        """.format(
+            name=valid_data['name'],
+            email=valid_data['email'],
+            phone=valid_data['phone'],
+            company = valid_data['company'],
+            has_prev_web = valid_data['has_prev_web'],
+            country = valid_data['country'],
+            comment = valid_data['comment'],
+            add_support = valid_data['add_support'],
+            add_email = valid_data['add_email']
+        )
+
+        send_mail(
+            subject="Promo web desde 450$",
+            message=quotation_message,
+            from_email='info@dev2tech.xyz',
+            recipient_list=['info@dev2tech.xyz',],
+        )
+
+        '''
+        print(valid_data)
+        '''
 
 
 class QuotationView(FormView):
