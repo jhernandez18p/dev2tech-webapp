@@ -114,19 +114,23 @@ dmypy.json
 .pyre/
 
 # Exclude
-!/staticfiles/img/* 
-#promo-dev2tech-125.jpg
+
+
 !/staticfiles/vendors/bootstrap-select/*
 !/staticfiles/vendors/owl-carousel/*
 !/staticfiles/vendors/rev-slider/*
 !/staticfiles/vendors/rev-slider/revolution-addons/snow/*
 !/staticfiles/vendors/tether/*
-**/*.pyc
-**/migrations
-/media
-/staticfiles/*
+
+#!/staticfiles/img/*
+/staticfiles/admin/*
+/staticfiles/ckeditor/*
 /templates/html
 
 .env
 LICENSE
 README.md
+
+**/*.pyc
+**/migrations
+/media
