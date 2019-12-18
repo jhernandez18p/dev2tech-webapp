@@ -114,7 +114,8 @@ dmypy.json
 .pyre/
 
 # Exclude
-!/staticfiles/img/promo-dev2tech-125.jpg
+!/staticfiles/img/* 
+#promo-dev2tech-125.jpg
 !/staticfiles/vendors/bootstrap-select/*
 !/staticfiles/vendors/owl-carousel/*
 !/staticfiles/vendors/rev-slider/*
