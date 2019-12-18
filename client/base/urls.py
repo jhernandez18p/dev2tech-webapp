@@ -3,7 +3,8 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 from .views import HomeView, PortfolioView, ContactView, \
-    QuotationView, ThanksView, SuscribeView, DisplayPDFView, PricePDFView, PromoQuotationView
+    QuotationView, ThanksView, SuscribeView, DisplayPDFView, \
+    PricePDFView, PromoQuotationView, Promo125
 
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
     path('contacto', ContactView.as_view(), name='contact'),
     path('suscribe', SuscribeView.as_view(), name='suscribe'),
     path('gracias', ThanksView.as_view(), name='thanks'),
+    path('promo125', Promo125.as_view(), name='promo125'),
     #
     path('brochure', RedirectView.as_view(url='/'), name='brochure'),
     path('mailto', RedirectView.as_view(url='/contacto'), name='mailto'),

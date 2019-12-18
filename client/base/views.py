@@ -316,6 +316,19 @@ class ThanksView(TemplateView):
         return context
 
 
+class Promo125(TemplateView):
+    
+    template_name = "base/promo-email.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Redes sociales desde 125$'
+        context['page_description'] = 'Promo especial de fin de año - Redes sociales desde 125$.'
+        context['has_banner'] = False
+        context['has_aside'] = False
+        return context
+
+
 class DisplayPDFView(View):
 
     def get_context_data(self, **kwargs):
